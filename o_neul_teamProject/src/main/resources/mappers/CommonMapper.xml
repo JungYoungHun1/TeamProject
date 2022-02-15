@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsbl.oneul.common.CommonMapper">
+    <select id="selSeasonList" resultType="FoodResultVO">
+        select A.f_nm,B.key_value  from o_food A
+        JOIN connect_common B
+        ON A.f_season = B.sub_key AND B.master_key = 3
+        where A.f_season = ${season};
+    </select>
+</mapper>

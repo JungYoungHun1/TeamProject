@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsbl.oneul.user.UserMapper">
+
+    <insert id="join">
+        INSERT INTO o_user
+            (u_id, u_pw, u_nm, u_email, u_pfnum)
+        VALUES (#{u_id}, #{u_pw}, #{u_nm}, #{u_email}, ${u_pfnum})
+    </insert>
+
+    <select id="idChk" resultType="UserVO">
+        SELECT *
+        FROM o_user
+        WHERE u_id = #{u_id}
+          and u_pfnum = 1;
+    </select>
+
+    <select id="emailChk" resultType="UserVO">
+        SELECT *
+        FROM o_user
+        WHERE u_email = #{u_email}
+          and u_pfnum = 1;
+    </select>
+
+
+    <select id="login" resultType="UserVO">
+        SELECT *
+        FROM o_user
+        WHERE u_id = #{u_id}
+          and u_pfnum = 1;
+    </select>
+
+    <select id="selUser" resultType="UserVO">
+        SELECT *
+        FROM o_user
+        WHERE u_email = #{u_email}
+          and u_pfnum = ${u_pfnum};
+    </select>
+
+
+    <select id="nicknameChk" resultType="UserVO">
+        SELECT *
+        FROM o_user
+        WHERE u_nickname = #{u_nickname};
+    </select>
+
+    <select id="changeUser" resultType="UserVO">
+        SELECT * FROM o_user
+        WHERE
+        <if test=" u_email != null and u_email != '' and u_pfnum != null and u_pfnum != ''">
+            u_email = #{u_email} and u_pfnum = ${u_pfnum}
+        </if>
+        <if test=" iuser > 0 ">iuser = #{iuser}</if>
+    </select>
+
+    <update id="updUser">
+        UPDATE o_user
+        SET
+        <if test=" u_pw != null and u_pw != '' ">
+            u_pw = #{u_pw}
+        </if>
+        <if test=" u_profileimg != null and u_profileimg != '' ">
+            u_profileimg = #{u_profileimg}
+        </if>
+        WHERE iuser = ${iuser}
+    </update>
+
+    <update id="updNickname">
+        UPDATE o_user
+        SET u_nickname = #{u_nickname}
+        WHERE iuser = ${iuser}
+    </update>
+
+</mapper>
